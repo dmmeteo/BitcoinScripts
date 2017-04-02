@@ -51,11 +51,14 @@ def game(deposit,profit):
 	# print 'rolls done: %s' % rolls_done
 	return 1
 
-won_range = [game(2000,100) for i in range(100)]
+deposit = 1000000
+profit_to_stop = 1000
+won_range = [game(deposit,profit_to_stop) for i in range(100)]
 # won_range if you needs
 # print won_range
 
 # statistic counters
+profit_true = 0
 wins = 0
 lost = 0
 
@@ -63,7 +66,10 @@ lost = 0
 # of winning in 100 packs of rolls
 for i in won_range:
 	if i == 1:
+		profit_true+=profit_to_stop
 		wins+=1
-	else: lost+=1
-print 'persent won: %3.2f%%' % (wins*100./(wins+lost))
+	else: 
+		profit_true-=deposit
+		lost+=1
+print 'persent won: %3.2f%%\nprofit true: %s satoshi' % (wins*100./(wins+lost), profit_true)
 
